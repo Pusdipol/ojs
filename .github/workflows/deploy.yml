@@ -23,20 +23,30 @@ jobs:
           port: ${{ secrets.DEPLOY_PORT }}
           script: |
             cd ~/domains/pusdipol.com/public_html/jurnal
-            
+
             # Jika folder bukan git, inisialisasi dari awal agar tidak bentrok dengan file yang sudah diupload manual.
             if [ ! -d ".git" ]; then
               git init
               git remote add origin https://github.com/Pusdipol/ojs.git
             fi
+            
             git fetch --all
             git reset --hard origin/main
             git clean -fd
             
+            # Gunakan konfigurasi Hostinger secara otomatis
+            if [ -f "config.hostinger.inc.php" ]; then
+              cp config.hostinger.inc.php config.inc.php
+            fi
+            
+            # Pastikan folder penting ada dan memiliki hak akses (menghindari HTTP ERROR 500)
+            mkdir -p cache/t_cache cache/t_compile cache/t_config cache/_db public
+            chmod -R 775 cache public
+
             # Install/Update dependencies PHP jika ada perubahan
             cd lib/pkp
             composer install --no-dev --optimize-autoloader
-            
+
             # Kosongkan template cache agar perubahan langsung terlihat
             cd ../../
             php tools/clearTemplateCache.php || true
