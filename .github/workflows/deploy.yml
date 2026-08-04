@@ -40,8 +40,8 @@ jobs:
             fi
             
             # Pastikan folder penting ada dan memiliki hak akses (menghindari HTTP ERROR 500)
-            mkdir -p cache/t_cache cache/t_compile cache/t_config cache/_db public
-            chmod -R 775 cache public
+            mkdir -p cache/t_cache cache/t_compile cache/t_config cache/_db public files
+            chmod -R 775 cache public files
 
             # Install/Update dependencies PHP jika ada perubahan
             composer install --no-dev --optimize-autoloader || true

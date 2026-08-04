@@ -210,7 +210,7 @@ connection_charset = utf8
 ; Complete path to directory to store uploaded files
 ; (This directory should not be directly web-accessible)
 ; Windows users should use forward slashes
-files_dir = files
+files_dir = "/home/u970231274/domains/pusdipol.com/public_html/jurnal/files"
 
 ; Path to the directory to store public uploaded files
 ; (This directory should be web-accessible and the specified path
